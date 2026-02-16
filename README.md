@@ -1,48 +1,73 @@
-# Enterprise Data Client (React 19 + Vite)
+# Enterprise Data Client (EDC)
 
-![React](https://img.shields.io/badge/React-19.0-blue?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-7.0-purple?logo=vite)
-![Playwright](https://img.shields.io/badge/Testing-Playwright-green?logo=playwright)
-![License](https://img.shields.io/badge/License-MIT-gray)
+![React](https://img.shields.io/badge/React-19.0-blue?logo=react&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&style=for-the-badge)
+![Vite](https://img.shields.io/badge/Vite-7.2-purple?logo=vite&style=for-the-badge)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?logo=tailwind-css&style=for-the-badge)
+![Playwright](https://img.shields.io/badge/Testing-Playwright-green?logo=playwright&style=for-the-badge)
 
-**The high-performance frontend client for the Enterprise Data Visualization Platform.**
+**A high-performance, accessible frontend architecture designed for enterprise financial analytics.**
 
-This repository hosts the client-side application architecture, focusing on **accessibility**, **component modularity**, and **rendering performance**. It serves as the consumption layer for the Python Asset Service, providing a seamless, responsive UI for financial analytics.
+This repository represents the **Client Layer** of the Enterprise Data Visualization Platform. It is engineered using a **Headless UI** philosophy, prioritizing accessibility (a11y), type safety, and rendering performance for high-frequency data updates.
 
-## 🏗 Architecture & Tech Stack
+---
 
-This project is built on a **modern, type-safe foundation** designed for scale.
+## 🏗 Architecture & Design System
+
+This project moves away from monolithic UI frameworks in favor of a composable, **headless architecture** using Radix Primitives and Tailwind v4.
+
+```mermaid
+graph TD
+    subgraph "Core Engine"
+        R[React 19] --> V[Vite 7 Build System]
+        TS[TypeScript 5.9 Strict Mode]
+    end
+
+    subgraph "State Management"
+        Z[Zustand Store] -->|Atomic Updates| F[Features]
+    end
+
+    subgraph "Headless Design System"
+        Radix[Radix UI Primitives] -->|A11y Logic| UI[UI Components]
+        TW[Tailwind CSS 4] -->|Styling| UI
+        CVA[Class Variance Authority] -->|Type-Safe Variants| UI
+        Lucide[Lucide React] -->|Icons| UI
+    end
+
+    subgraph "Quality Assurance"
+        PW[Playwright E2E] -->|Integration Tests| UI
+        ES[ESLint 9] -->|Static Analysis| TS
+    end
+
+    UI -->|Composed Into| F[Feature Modules]
+```
+
+---
+
+## ⚡ Tech Stack & Rationale
 
 ### Core Framework
-* **Runtime:** [React 19](https://react.dev/) - Leveraging the latest concurrent features for high-frequency updates.
-* **Build Tool:** [Vite 7](https://vitejs.dev/) - Ensuring instant HMR (Hot Module Replacement) and optimized production builds.
-* **Language:** [TypeScript 5.9](https://www.typescriptlang.org/) - Strict type safety for all components and API responses.
+* **[React 19](https://react.dev/):** Utilizing the latest concurrent rendering features for non-blocking UI updates.
+* **[Vite 7](https://vitejs.dev/):** Next-generation frontend tooling for instant HMR.
+* **[TypeScript 5.9](https://www.typescriptlang.org/):** Enforcing strict type safety across the entire application domain.
 
-### UI & Design System (Headless Architecture)
-Unlike traditional UI kits, this project uses a **Headless UI** approach for maximum customization and accessibility.
-* **Primitives:** [@radix-ui](https://www.radix-ui.com/) - Unstyled, accessible components (Tabs, ScrollArea, Dialogs) that handle ARIA roles and keyboard navigation out of the box.
-* **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS for rapid styling.
-* **Composition:** [class-variance-authority (CVA)](https://cva.style/) - Creating type-safe, variant-driven components (e.g., `Button` variants).
-* **Icons:** [Lucide React](https://lucide.dev/) - Lightweight, tree-shakeable icons.
+### Design System (Headless)
+* **[@radix-ui/react-*](https://www.radix-ui.com/):** Unstyled, accessible components (Collapsible, ScrollArea, Tabs, Dialogs) that handle ARIA roles and keyboard navigation.
+* **[Tailwind CSS 4](https://tailwindcss.com/):** Zero-runtime utility CSS for high-performance styling.
+* **[class-variance-authority](https://cva.style/):** Managing component variants (e.g., button sizes, intent) with full TypeScript support.
+* **[lucide-react](https://lucide.dev/):** Tree-shakeable, consistent icon set.
 
-### State Management
-* **[Zustand](https://github.com/pmndrs/zustand):** A small, fast, and scalable bearbones state-management solution. Used for global UI state (theme, sidebar, user preferences) to avoid React Context re-rendering issues.
+### State & Utilities
+* **[zustand](https://github.com/pmndrs/zustand):** Minimalist state management for global UI state.
+* **[clsx](https://github.com/lukeed/clsx) & [tailwind-merge](https://github.com/dcastil/tailwind-merge):** Utilities for conditional class merging without style conflicts.
 
-### Quality Assurance
-* **End-to-End Testing:** [Playwright](https://playwright.dev/) - Automated browser testing to ensure critical user flows (Login, Dashboard Load, Filtering) work across Chrome, Firefox, and Safari.
-* **Linting:** ESLint 9 + Prettier - Enforcing strict code style and preventing functional errors.
+---
 
-## ⚡ Performance Optimization
-
-* **Zero-Runtime Styles:** Tailwind CSS generates CSS at build time, resulting in minimal bundle overhead compared to CSS-in-JS libraries.
-* **Radix Primitives:** Components like `ScrollArea` and `Tabs` are optimized for DOM footprint, ensuring the dashboard remains responsive even with complex layouts.
-
-## 🛠 Local Development
+## 🚀 Getting Started
 
 ### Prerequisites
-* Node.js 18+
-* pnpm (recommended) or npm
+* Node.js 20+ (LTS Recommended)
+* npm (Preferred)
 
 ### Installation
 
@@ -52,3 +77,56 @@ git clone [https://github.com/Enterprise-Data-Visualisation/react-client.git](ht
 
 # Install dependencies
 npm install
+```
+
+### Available Scripts
+
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts the Vite development server. |
+| `npm run build` | Compiles the application using TypeScript and Vite for production. |
+| `npm run preview` | Locally previews the production build. |
+| `npm run lint` | Runs ESLint to identify code quality issues. |
+| `npm run lint:fix` | Automatically fixes ESLint errors. |
+| `npm run format` | Formats code using Prettier. |
+| `npm run format:check` | Checks if code is correctly formatted. |
+
+---
+
+## 🧪 Testing (Playwright)
+
+We use **Playwright** for robust End-to-End (E2E) testing to ensure critical user flows work across all browsers.
+
+```bash
+# Run all E2E tests (Headless mode)
+npm run test:e2e
+
+# Run tests with UI Debugger (Interactive Mode)
+npm run test:e2e:ui
+
+# Run tests in a headed browser (Visual Mode)
+npm run test:e2e:headed
+```
+
+---
+
+## 📂 Project Structure
+
+The project follows a **Feature-First** architecture to ensure maintainability at scale.
+
+```text
+src/
+├── components/         # Shared UI components
+│   └── ui/             # Radix + Tailwind primitives (Button, ScrollArea, Tabs)
+├── features/           # Domain-specific logic
+│   ├── dashboard/      # Analytics dashboard views
+│   ├── assets/         # Asset management tables
+│   └── auth/           # Authentication flows
+├── store/              # Zustand atomic stores
+├── lib/                # Utilities (cn, tailwind-merge)
+├── types/              # Global TypeScript definitions
+└── tests/              # Playwright E2E test specs
+```
+
+---
+*Maintained by [Archit Gupta](https://github.com/architg564) - Senior Frontend Engineer*
