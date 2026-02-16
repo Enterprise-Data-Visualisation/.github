@@ -67,7 +67,7 @@ graph TD
 
 ### Prerequisites
 * Node.js 20+ (LTS Recommended)
-* npm (Preferred)
+* pnpm (Required)
 
 ### Installation
 
@@ -76,20 +76,20 @@ graph TD
 git clone [https://github.com/Enterprise-Data-Visualisation/react-client.git](https://github.com/Enterprise-Data-Visualisation/react-client.git)
 
 # Install dependencies
-npm install
+pnpm install
 ```
 
 ### Available Scripts
 
 | Command | Description |
 | :--- | :--- |
-| `npm run dev` | Starts the Vite development server. |
-| `npm run build` | Compiles the application using TypeScript and Vite for production. |
-| `npm run preview` | Locally previews the production build. |
-| `npm run lint` | Runs ESLint to identify code quality issues. |
-| `npm run lint:fix` | Automatically fixes ESLint errors. |
-| `npm run format` | Formats code using Prettier. |
-| `npm run format:check` | Checks if code is correctly formatted. |
+| `pnpm dev` | Starts the Vite development server. |
+| `pnpm build` | Compiles the application using TypeScript and Vite for production. |
+| `pnpm preview` | Locally previews the production build. |
+| `pnpm lint` | Runs ESLint to identify code quality issues. |
+| `pnpm lint:fix` | Automatically fixes ESLint errors. |
+| `pnpm format` | Formats code using Prettier. |
+| `pnpm format:check` | Checks if code is correctly formatted. |
 
 ---
 
@@ -99,13 +99,13 @@ We use **Playwright** for robust End-to-End (E2E) testing to ensure critical use
 
 ```bash
 # Run all E2E tests (Headless mode)
-npm run test:e2e
+pnpm test:e2e
 
 # Run tests with UI Debugger (Interactive Mode)
-npm run test:e2e:ui
+pnpm test:e2e:ui
 
 # Run tests in a headed browser (Visual Mode)
-npm run test:e2e:headed
+pnpm test:e2e:headed
 ```
 
 ---
