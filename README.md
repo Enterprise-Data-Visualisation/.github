@@ -1,103 +1,54 @@
-# Enterprise Data Visualisation Platform (EDVP)
+# Enterprise Data Client (React 19 + Vite)
 
-[![React](https://img.shields.io/badge/Frontend-React%2018-blue)](https://github.com/Enterprise-Data-Visualisation/react-client)
-[![Python](https://img.shields.io/badge/Backend-Python-yellow)](https://github.com/Enterprise-Data-Visualisation/asset-service)
-[![Architecture](https://img.shields.io/badge/Architecture-Decoupled-green)](#system-architecture)
+![React](https://img.shields.io/badge/React-19.0-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-7.0-purple?logo=vite)
+![Playwright](https://img.shields.io/badge/Testing-Playwright-green?logo=playwright)
+![License](https://img.shields.io/badge/License-MIT-gray)
 
-**A high-performance, decoupled visualization system designed to render complex asset data for enterprise analytics.**
+**The high-performance frontend client for the Enterprise Data Visualization Platform.**
 
-## 🚀 Overview
+This repository hosts the client-side application architecture, focusing on **accessibility**, **component modularity**, and **rendering performance**. It serves as the consumption layer for the Python Asset Service, providing a seamless, responsive UI for financial analytics.
 
-The **Enterprise Data Visualisation Platform** is a micro-service based solution designed to bridge the gap between heavy backend data processing (Python) and high-performance client-side rendering (React). 
+## 🏗 Architecture & Tech Stack
 
-Unlike traditional monolithic dashboards, EDVP decouples the **Data Aggregation Layer** from the **Presentation Layer**, allowing for independent scaling and optimized payload delivery for financial datasets.
+This project is built on a **modern, type-safe foundation** designed for scale.
 
-## 🏗 System Architecture
+### Core Framework
+* **Runtime:** [React 19](https://react.dev/) - Leveraging the latest concurrent features for high-frequency updates.
+* **Build Tool:** [Vite 7](https://vitejs.dev/) - Ensuring instant HMR (Hot Module Replacement) and optimized production builds.
+* **Language:** [TypeScript 5.9](https://www.typescriptlang.org/) - Strict type safety for all components and API responses.
 
-This platform follows a modern **Consumer-Provider pattern**, tailored for financial data visualization.
+### UI & Design System (Headless Architecture)
+Unlike traditional UI kits, this project uses a **Headless UI** approach for maximum customization and accessibility.
+* **Primitives:** [@radix-ui](https://www.radix-ui.com/) - Unstyled, accessible components (Tabs, ScrollArea, Dialogs) that handle ARIA roles and keyboard navigation out of the box.
+* **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS for rapid styling.
+* **Composition:** [class-variance-authority (CVA)](https://cva.style/) - Creating type-safe, variant-driven components (e.g., `Button` variants).
+* **Icons:** [Lucide React](https://lucide.dev/) - Lightweight, tree-shakeable icons.
 
-```mermaid
-graph LR
-    User[Client Browser] -->|HTTP/WebSocket| FE[React Frontend]
-    FE -->|REST API| BE[Python Asset Service]
-    BE -->|Data Aggregation| DS[(Data Sources/CSV)]
-    
-    subgraph Frontend Layer
-    FE
-    State[Zustand Store]
-    Viz[Plotly/D3 Charts]
-    end
-    
-    subgraph Backend Layer
-    BE
-    Pandas[Pandas Processing]
-    API[FastAPI/Flask]
-    end
+### State Management
+* **[Zustand](https://github.com/pmndrs/zustand):** A small, fast, and scalable bearbones state-management solution. Used for global UI state (theme, sidebar, user preferences) to avoid React Context re-rendering issues.
 
+### Quality Assurance
+* **End-to-End Testing:** [Playwright](https://playwright.dev/) - Automated browser testing to ensure critical user flows (Login, Dashboard Load, Filtering) work across Chrome, Firefox, and Safari.
+* **Linting:** ESLint 9 + Prettier - Enforcing strict code style and preventing functional errors.
 
-📦 Micro-Services (Repositories)
-This organization is split into domain-specific repositories to ensure separation of concerns:
+## ⚡ Performance Optimization
 
-1. Frontend Client (React)
-Role: The visualization layer.
+* **Zero-Runtime Styles:** Tailwind CSS generates CSS at build time, resulting in minimal bundle overhead compared to CSS-in-JS libraries.
+* **Radix Primitives:** Components like `ScrollArea` and `Tabs` are optimized for DOM footprint, ensuring the dashboard remains responsive even with complex layouts.
 
-Tech Stack: React 18, TypeScript, Tailwind CSS, Plotly.js/Recharts.
+## 🛠 Local Development
 
-Key Features:
+### Prerequisites
+* Node.js 18+
+* pnpm (recommended) or npm
 
-Data Virtualization: Handles large datasets efficiently.
+### Installation
 
-Responsive Charts: Dynamic scaling for complex time-series data.
-
-Atomic State: Uses Zustand to minimize re-renders during high-frequency updates.
-
-2. Asset Service (Python)
-Role: The data aggregation and processing layer.
-
-Tech Stack: Python, Pandas, REST API.
-
-Key Features:
-
-Data Normalization: Cleans and structures raw asset data before serving.
-
-Optimized Payloads: Delivers lightweight JSON structures specifically formatted for frontend charting libraries.
-
-💡 Engineering Decisions
-Why Decoupled? Financial data science teams prefer Python (Pandas/NumPy) for data manipulation, while User Experience teams require the interactivity of React. This architecture allows both to coexist without locking the stack.
-
-Performance First: Heavy data processing is offloaded to the Python backend. The React client receives only what it needs to render, ensuring the main thread remains unblocked (60 FPS UI).
-
-🛠 Local Setup
-To run the full suite locally:
-
-Clone the repositories:
-
-Bash
+```bash
+# Clone the repository
 git clone [https://github.com/Enterprise-Data-Visualisation/react-client.git](https://github.com/Enterprise-Data-Visualisation/react-client.git)
-git clone [https://github.com/Enterprise-Data-Visualisation/asset-service.git](https://github.com/Enterprise-Data-Visualisation/asset-service.git)
-Start the Backend:
 
-Bash
-cd asset-service
-pip install -r requirements.txt
-python app.py
-Start the Frontend:
-
-Bash
-cd react-client
+# Install dependencies
 npm install
-npm run dev
-Maintained by Archit Gupta - Senior Frontend Engineer
-
-
-### **How to Install This (Crucial Step)**
-1.  Go to your Organization page on GitHub (`github.com/orgs/Enterprise-Data-Visualisation`).
-2.  Click **"New Repository"**.
-3.  Name the repository **`.github`**.
-4.  Make it **Public**.
-5.  Create a folder inside it named `profile`.
-6.  Create a file inside that named `README.md`.
-7.  Paste the code above.
-8.  **Update the Links:** I used generic names (`react-client`, `asset-service`). Change those URLs in the markdown to match your **actual** repo names.
-
-This will put a professional "System Architecture" overview right on the front page of your Organization.
